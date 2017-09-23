@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.prj.dao.StudentDaoMapper">
+
+	<!-- 新增 -->
+	<insert id="save" parameterType="Student">
+		insert into
+		student(stuname,stuhobby,cid) values(#{stuname},#{stuhobby},#{ct.cid})
+	</insert>
+
+	<!-- 根据学生ID删除 -->
+	<delete id="delBySid" parameterType="int">
+		delete from student where
+		stuid = #{stuid}
+	</delete>
+
+	<!-- 根据班级ID删除 -->
+	<delete id="delByCid" parameterType="int">
+		delete from student where
+		cid = #{cid}
+	</delete>
+
+
+	<!-- 修改 -->
+	<update id="update" parameterType="Student">
+		update student set stuname =
+		#{stuname},stuhobby=#{stuhobby},cid=#{ct.cid} where stuid = #{stuid}
+	</update>
+
+	<resultMap type="Student" id="mapps">
+		<id  property="stuid" column="stuid"></id>
+		<result property="stuname" column="stuname"></result>
+		<result property="stuhobby" column="stuhobby"></result>
+		<association property="ct" javaType="Classtable">
+			<id property="cid" column="cid"></id>
+			<result property="cname" column="cname"></result>
+		</association>
+	</resultMap>
+
+
+	<!-- 查询all -->
+	<select id="findAll" resultMap="mapps">
+		select s.*,c.*
+		from student s,classtable c where s.cid = c.cid;
+	</select>
+	
+	
+	<!-- 查询only -->
+	<select id="findById" resultMap="mapps" parameterType="int">
+		select s.*,c.*
+		from student s,classtable c where s.cid = c.cid and stuid = #{stuid}
+	</select>
+
+
+</mapper>  

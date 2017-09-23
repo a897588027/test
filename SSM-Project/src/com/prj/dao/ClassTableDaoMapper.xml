@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.prj.dao.ClassTableDaoMapper">
+
+	<!-- 新增 -->
+	<insert id="save" parameterType="Classtable">
+		insert into
+		Classtable(cname)
+		values(#{cname})
+	</insert>
+
+	<!-- 删除 -->
+	<delete id="delById" parameterType="int">
+		delete from Classtable where
+		cid = #{cid}
+	</delete>
+
+
+
+	<!-- 查询all -->
+	<select id="findAll" resultType="Classtable">
+		select * from classtable
+	</select>
+
+	<resultMap type="Classtable" id="maps">
+		<id column="cid" property="cid"/>
+		<result column="cname" property="cname"/>
+		<collection property="lsst" ofType="Student">
+			<id column="stuid" property="stuid"/>
+			<result column="stuname" property="stuname"/>
+			<result column="stuhobby" property="stuhobby"/>	
+		</collection>
+	</resultMap>
+
+
+	<select id="findByCidInStudnet" resultMap="maps" parameterType="int">
+		SELECT s.*,c.*
+		FROM student s,classtable c
+		WHERE s.`cid` = c.`cid`
+		AND c.`cid` = #{cid};
+	</select>
+
+
+
+
+</mapper>  

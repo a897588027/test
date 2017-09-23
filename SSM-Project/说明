@@ -1,0 +1,22 @@
+/*****************项目搭建********************/
+1.加夹包
+2.添加ssm配置文件
+3.配置web.xml--->ContextLoaderListener(spring监听器)
+				DispatcherServlet(springMVC核心控制器)
+				CharacterEncodingFilter(spring自带的编码过滤器)
+4.配置各个主配置文件
+  (1)mybatis---->typeAliases(起别名)
+  
+  
+  (2)springMVC-->context:component-scan(注解扫描包)
+     		     InternalResourceViewResolver(试图解析器)
+     		     
+  (3)spring----->context:property-placeholder(加载jdbc属性文件获取到数据库连接的四个参数)
+  				 dataSource(数据源)		
+  				 DataSourceTransactionManager(配置事物管理)关联到dataSource
+  				 SqlSessionFactoryBean(sqlsession工厂，帮助获取数据库连接回话)
+  				 MapperScannerConfigurer(扫描DaoMapper)
+  				 <tx:annotation-driven />(支持注解)
+  				
+
+				
